@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
 
       let postConfig = {
-        method: 'post',
+        method: 'get',
         url: configZLP.zlp_endpoint + ZLP_API_PATH.ZOD_QUERY_INVOICE,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'

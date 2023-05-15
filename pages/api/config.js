@@ -31,4 +31,7 @@ export const API_ROUTES = {
   AGREEMENT_QUERY_USER: "/api/agreement/query_user",
   AGREEMENT_CALLBACK: "/api/callback/agreement",
   CREATE_ORDER_CALLBACK: "/api/callback/order",
+  ZOD_CREATE_INVOICE: "/api/zod/create",
+  ZOD_QUERY_INVOICE: "/api/zod/query",
+  ZOD_QUERY_STATUS: "/api/zod/query_status"
 }

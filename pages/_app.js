@@ -20,11 +20,11 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <CartProvider>
         <div className="min-h-screen flex flex-col">
-          <Header />
+          {/*<Header />*/}
           <main className="flex-grow">
             <Component {...pageProps} />
           </main>
-          <Footer />
+          {/*<Footer />*/}
         </div>
       </CartProvider>
       <Toaster />

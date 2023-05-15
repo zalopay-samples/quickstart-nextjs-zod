@@ -9,12 +9,14 @@
     "ngrok": "ngrok http 3000"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "@heroicons/react": "^1.0.1",
     "antd": "^5.2.2",
     "axios": "^0.21.1",
     "body-parser": "^1.20.2",
     "canvas-confetti": "^1.4.0",
     "crypto-js": "^4.1.1",
+    "jspdf": "^2.5.1",
     "micro": "^9.3.4",
     "moment": "^2.29.4",
     "next": "11.0.1",

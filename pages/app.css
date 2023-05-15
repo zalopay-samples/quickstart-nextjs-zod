@@ -37,6 +37,8 @@
     margin-left: 5px;
 }
 
+
+
 #zlp-logo-tokenization {
     height: 60px;
     width: 60px;
@@ -59,7 +61,26 @@
     display: inline;
 }
 
-.agreement-btn{
+.zod-btn{
     margin: 10px 0;
+    width: 250px;
 }
 
+.order-item-img{
+    height: 50px;
+    width: 50px;
+}
+
+.zod-qrcode-wrapper{
+    display: flex;
+    justify-content: center;
+}
+
+#zod-qrcode {
+    text-align: center;
+}
+
+#zod-qrcode .ant-qrcode {
+    flex-wrap: wrap;
+    align-content: center;
+}
