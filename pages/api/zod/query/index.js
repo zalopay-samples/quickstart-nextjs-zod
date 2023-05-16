@@ -18,7 +18,7 @@ export default async function handler(req, res) {
         method: 'get',
         url: configZLP.zlp_endpoint + ZLP_API_PATH.ZOD_QUERY_INVOICE,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         params
       };
@@ -28,7 +28,7 @@ export default async function handler(req, res) {
         res.status(200).json(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
       });
     } catch (err) {
       res.status(500).json({statusCode: 500, message: err.message});

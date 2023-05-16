@@ -8,18 +8,17 @@ export default async function handler(req, res) {
     try {
       let params = {
         appId: configZLP.app_id,
-        mcRefId: req.body.mc_ref_id,
+        mcRefId: req.body.mcRefId,
       }
 
       let data = params.appId + "|" + params.mcRefId; // appId|mcRefId
       params.mac = CryptoJS.HmacSHA256(data, configZLP.key1).toString();
 
-
       let config = {
         method: 'get',
         url: configZLP.zlp_endpoint + ZLP_API_PATH.ZOD_QUERY_STATUS,
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
+          'Content-Type': 'application/json'
         },
         params
       };
@@ -29,7 +28,7 @@ export default async function handler(req, res) {
         res.status(200).json(response.data);
       })
       .catch(function (error) {
-        console.log(error);
+        console.log(error.response.data);
       });
     } catch (err) {
       res.status(500).json({statusCode: 500, message: err.message});

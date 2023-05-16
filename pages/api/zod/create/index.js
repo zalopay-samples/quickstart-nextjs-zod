@@ -21,8 +21,6 @@ export default async function handler(req, res) {
       const data = zodInvoice.appId + "|" + zodInvoice.mcRefId + "|" + zodInvoice.amount + "|" + zodInvoice.mcExtInfo;
       zodInvoice.mac = CryptoJS.HmacSHA256(data, configZLP.key1).toString();
 
-      console.log(zodInvoice);
-
       const config = {
         method: 'post',
         url: configZLP.zlp_endpoint + ZLP_API_PATH.ZOD_CREATE_INVOICE,

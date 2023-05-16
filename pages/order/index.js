@@ -111,8 +111,18 @@ const Order = () => {
   const [open, setOpen] = useState(false);
   const [qrCode, setQrCode] = useState('');
   const [loading, setLoading] = useState(false);
-  const showModal = () => {
+  const showModal = async () => {
     setOpen(true);
+    const res = await axios.post(API_ROUTES.ZOD_QUERY_INVOICE, {
+      mc_ref_id: "230516_155810",
+    });
+
+    const res2 = await axios.post(API_ROUTES.ZOD_QUERY_STATUS, {
+      mcRefId: "230516_155810",
+    });
+
+    console.log(res.data)
+    console.log(res2.data)
   };
   const handleOk = () => {
   };
