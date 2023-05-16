@@ -139,6 +139,7 @@ const Order = () => {
         }
       ]
     });
+    message.success('Created ZOD invoice successfully!');
     setLoading(false);
     setQrCode(res.data.orderUrl);
   };

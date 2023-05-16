@@ -6,25 +6,25 @@ import {configZLP, ZLP_API_PATH} from "../../config";
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
-      let postData = {
+      let params = {
         appId: configZLP.app_id,
         mcRefId: req.body.mc_ref_id,
       }
 
-      let data = postData.appId + "|" + postData.mcRefId; // appId|mcRefId
-      postData.mac = CryptoJS.HmacSHA256(data, configZLP.key1).toString();
+      let data = params.appId + "|" + params.mcRefId; // appId|mcRefId
+      params.mac = CryptoJS.HmacSHA256(data, configZLP.key1).toString();
 
 
-      let postConfig = {
+      let config = {
         method: 'get',
         url: configZLP.zlp_endpoint + ZLP_API_PATH.ZOD_QUERY_STATUS,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },
-        data: qs.stringify(postData)
+        params
       };
 
-      axios(postConfig)
+      axios(config)
       .then(function (response) {
         res.status(200).json(response.data);
       })
