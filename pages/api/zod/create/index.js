@@ -38,7 +38,13 @@ export default async function handler(req, res) {
           orderUrl: result.data.orderUrl,
         });
       })
-      .catch(err => console.log(err.response.data));
+      .catch(err => {
+        console.log(err.response)
+        res.status(err.response.status).json({
+          error: true,
+          message: err.response.data.message
+        })
+      });
     } catch (err) {
       res.status(500).json({statusCode: 500, message: err.message});
     }

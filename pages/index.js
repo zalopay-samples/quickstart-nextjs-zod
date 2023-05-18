@@ -13,12 +13,12 @@ import {
   theme,
   Typography
 } from 'antd';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Footer, Logo} from "@/components/index";
 import moment from "moment";
 import axios from "axios";
 import {API_ROUTES} from "./api/config";
-import {columns, orderData} from "../orderTable";
+import {columns, orderData, OrderStatus} from "../order";
 
 const {Header, Content, Sider} = Layout;
 const {Title} = Typography;
@@ -44,6 +44,8 @@ const items = [
   getItem('Settings', '3', <SettingOutlined/>),
 ];
 
+let mcRefId = '';
+
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -52,20 +54,36 @@ const Home = () => {
 
   const [open, setOpen] = useState(false);
   const [qrCode, setQrCode] = useState('');
+  const [orderStatus, setOrderStatus] = useState(OrderStatus.UNPAID);
   const [loading, setLoading] = useState(false);
+
+  // interval check ZOD order status each 2s
+  useEffect(() => {
+    let checkOrderStatus = setInterval(async () => {
+      // interval query order ZLP status
+      if (qrCode !== '') {
+        const res = await axios.post(API_ROUTES.ZOD_QUERY_STATUS, {
+          mcRefId: mcRefId,
+        });
+        console.log(res)
+        const returnCode = res.data.status;
+        if (returnCode === 1) {
+          clearInterval(checkOrderStatus);
+          message.success('ZOD invoice is successful!');
+          setOrderStatus(OrderStatus.SUCCESS);
+        }
+      }
+    }, 2000);
+    return () => {
+      clearInterval(checkOrderStatus);
+    };
+  });
+
   const showModal = async () => {
     setOpen(true);
-    const res = await axios.post(API_ROUTES.ZOD_QUERY_INVOICE, {
-      mc_ref_id: "230516_155810",
-    });
-
-    const res2 = await axios.post(API_ROUTES.ZOD_QUERY_STATUS, {
-      mcRefId: "230516_155810",
-    });
-
-    console.log(res.data)
-    console.log(res2.data)
   };
+
+
   const handleOk = () => {
   };
 
@@ -76,7 +94,7 @@ const Home = () => {
   const createInvoice = async () => {
     setLoading(true);
     const transID = Math.floor(Math.random() * 1000000);
-    const mcRefId = `${moment().format('YYMMDD')}_${transID}`;
+    mcRefId = `${moment().format('YYMMDD')}_${transID}`;
     const res = await axios.post(API_ROUTES.ZOD_CREATE_INVOICE, {
       mcRefId: mcRefId,
       amount: MOCKING_ORDER_DATA.amount,
@@ -91,10 +109,15 @@ const Home = () => {
         }
       ]
     });
-    console.log(res.data)
-    message.success('Created ZOD invoice successfully!');
-    setLoading(false);
-    setQrCode(res.data.orderUrl);
+    if (res.status === 200) {
+      message.success('Created ZOD invoice successfully!');
+      setLoading(false);
+      setQrCode(res.data.orderUrl);
+    } else {
+      message.error('Created ZOD invoice failed!');
+      console.log(res.data.message);
+      setLoading(false);
+    }
   };
 
   const downloadQRCode = () => {
@@ -160,7 +183,7 @@ const Home = () => {
               <Descriptions title="Order Info">
                 <Descriptions.Item label="Tracking Number">{MOCKING_ORDER_DATA.trackingNumber}</Descriptions.Item>
                 <Descriptions.Item label="Status">
-                  <Tag color='geekblue'>UNPAID</Tag>
+                  <Tag color='geekblue'>{orderStatus}</Tag>
                 </Descriptions.Item>
               </Descriptions>
               <Descriptions title="Receiver Info">

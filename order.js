@@ -1,3 +1,9 @@
+export const OrderStatus = {
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE',
+  UNPAID: 'UNPAID'
+};
+
 export const columns = [
   {
     title: 'OrderId',
