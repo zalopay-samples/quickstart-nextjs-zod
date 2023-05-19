@@ -23,7 +23,7 @@ export default async function handler(req, res) {
           // merchant cập nhật trạng thái cho đơn hàng
           let dataJson = JSON.parse(dataStr, configZLP.key2);
           console.log(`💰  Payment callback received!`);
-          console.log("✅  Update order's status = success where app_trans_id =", dataJson["app_trans_id"]);
+          console.log("✅  Update order's status = success where mcRefId =", dataJson["mcRefId"]);
 
           result.return_code = 1;
           result.return_message = "success";

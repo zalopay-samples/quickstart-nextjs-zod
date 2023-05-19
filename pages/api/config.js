@@ -2,8 +2,7 @@ export const configZLP = {
   app_id: process.env.ZLP_MERCHANT_APP_ID,
   key1: process.env.ZLP_MERCHANT_KEY1,
   key2: process.env.ZLP_MERCHANT_KEY2,
-  zlp_endpoint: process.env.ZLP_MERCHANT_ENDPOINT,
-  host: process.env.MERCHANT_ENDPOINT
+  zlp_endpoint: process.env.ZLP_MERCHANT_ENDPOINT
 };
 
 export const ZLP_API_PATH = {

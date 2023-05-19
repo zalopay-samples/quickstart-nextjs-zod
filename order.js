@@ -1,7 +1,9 @@
+import {Tag} from "antd";
+
 export const OrderStatus = {
-  SUCCESS: 'SUCCESS',
-  FAILURE: 'FAILURE',
-  UNPAID: 'UNPAID'
+  SUCCESS: <Tag color="success">SUCCESS</Tag>,
+  FAILURE: <Tag color="error">FAILURE</Tag>,
+  UNPAID: <Tag color="processing">UNPAID</Tag>
 };
 
 export const columns = [

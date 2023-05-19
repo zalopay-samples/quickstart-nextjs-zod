@@ -1,18 +1,5 @@
 import {PieChartOutlined, SettingOutlined, ShoppingCartOutlined} from '@ant-design/icons';
-import {
-  Breadcrumb,
-  Button,
-  Descriptions,
-  Layout,
-  Menu,
-  message,
-  Modal,
-  QRCode,
-  Table,
-  Tag,
-  theme,
-  Typography
-} from 'antd';
+import {Breadcrumb, Button, Descriptions, Layout, Menu, message, Modal, QRCode, Table, theme, Typography} from 'antd';
 import {useEffect, useState} from 'react';
 import {Footer, Logo} from "@/components/index";
 import moment from "moment";
@@ -34,7 +21,7 @@ function getItem(label, key, icon, children) {
 
 const MOCKING_ORDER_DATA = {
   trackingNumber: "PLANTY000001",
-  amount: 5000,
+  amount: 430000,
   receiverContact: "0123456789"
 }
 
@@ -69,11 +56,12 @@ const Home = () => {
         const returnCode = res.data.status;
         if (returnCode === 1) {
           clearInterval(checkOrderStatus);
-          message.success('ZOD invoice is successful!');
+          setOpen(false);
+          message.success('Order has been successfully paid!');
           setOrderStatus(OrderStatus.SUCCESS);
         }
       }
-    }, 2000);
+    }, 10000);
     return () => {
       clearInterval(checkOrderStatus);
     };
@@ -183,7 +171,7 @@ const Home = () => {
               <Descriptions title="Order Info">
                 <Descriptions.Item label="Tracking Number">{MOCKING_ORDER_DATA.trackingNumber}</Descriptions.Item>
                 <Descriptions.Item label="Status">
-                  <Tag color='geekblue'>{orderStatus}</Tag>
+                  {orderStatus}
                 </Descriptions.Item>
               </Descriptions>
               <Descriptions title="Receiver Info">

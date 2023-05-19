@@ -5,6 +5,5 @@ module.exports = {
     ZLP_MERCHANT_KEY1: '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q',
     ZLP_MERCHANT_KEY2: 'A53q3asfJ9qQMEVDUuruW86nIloLoAUq',
     ZLP_MERCHANT_ENDPOINT: 'https://sbapimep.zalopay.vn',
-    MERCHANT_ENDPOINT: '<YOUR_MERCHANT_HOST>',
   },
 };

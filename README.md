@@ -2,15 +2,13 @@
 
 ## Overview
 
-This repository includes examples of integrations for tokenized payment with
-ZaloPay [Tokenized Payment](https://docs.zalopay.vn/downloads/api/ZaloPay-APIs-AgreementPay-Integration-Document.pdf).
+This repository includes examples of integrations for [ZaloPay On Delivery](https://docs.zalopay.vn/downloads/api/ZaloPay-APIs-AgreementPay-Integration-Document.pdf) (ZOD).
 Within this demo app, you'll find a simplified version of an e-commerce website, complete with commented code to
 highlight key features and concepts of ZaloPay's API.
 
-Tokenized payment, also known as Auto-debit is a payment solution which allows merchants can debit money from
-user balances, accounts automatically after a user signed up an agreement.
+ZOD is a payment solution which gives your customers the comfort of digital payment at the time of delivery while reducing the risks and costs of traditional Cash On Delivery (COD) payment.
 
-![Card checkout demo](public/images/demo-agreement-pay.gif)
+![ZOD demo](public/images/demo-zod.gif)
 
 ## Requirements
 
@@ -42,7 +40,13 @@ ZLP_MERCHANT_KEY2="your_key2_here"
 ZLP_MERCHANT_ENDPOINT="zalopay_merchant_endpoint_here"
 ```
 
-Or you can use this [testing merchant account](https://docs.zalopay.vn/v2/start/#A-V).
+Or you can use this testing merchant account.
+
+```text
+ZLP_MERCHANT_APP_ID: '553',
+ZLP_MERCHANT_KEY1: '9phuAOYhan4urywHTh0ndEXiV3pKHr5Q',
+ZLP_MERCHANT_KEY2: 'A53q3asfJ9qQMEVDUuruW86nIloLoAUq',
+```
 
 2. Build & Start the server:
 
@@ -50,7 +54,7 @@ Or you can use this [testing merchant account](https://docs.zalopay.vn/v2/start/
 npm run dev
 ```
 
-3. Visit [http://localhost:3000/](http://localhost:3000/) to select an integration type.
+3. Visit [http://localhost:3000](http://localhost:3000).
 
 To try out payment you need install and register ZaloPay Sanbox ,
 see [Trải nghiệm với ZaloPay](https://docs.zalopay.vn/v2/start/#A).
@@ -97,26 +101,14 @@ ie `https://c991-80-113-16-28.ngrok.io`)
 
 ### Callback setup
 
-There are 2 way to set up a callback URL:
-
-- Update `MERCHANT_ENDPOINT` config in `next.config.js` file by ngrok url,
-  example: `https://c991-80-113-16-28.ngrok.io`. This value will send as params
-  in order creation API. See more
-  about [Order Information](https://docs.zalopay.vn/en/v2/general/overview.html#order-creation_order-information).
+Set up a callback URL:
 - Set up in [Sanbox Merchant Portal](https://sbmc.zalopay.vn/home).
 
 If the callback setup is worked, the following message is shown:
 
 ```text
 💰  Payment callback received!
-✅  Update order's status = success where app_trans_id = 230224_353137
-```
-
-or
-
-```text
-✅  Confirmed Binding callback received!
-🌈  Please provide mechanism to store payToken= MMJIZWIWOWUTY2M4ZS0ZMTY3LWI5ZJYTOTC0MJG0ZJE1YZFK
+✅  Update order's status = success where mcRefId = 230519_645224
 ```
 
 ## Author(s)
