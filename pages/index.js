@@ -52,7 +52,6 @@ const Home = () => {
         const res = await axios.post(API_ROUTES.ZOD_QUERY_STATUS, {
           mcRefId: mcRefId,
         });
-        console.log(res)
         const returnCode = res.data.status;
         if (returnCode === 1) {
           clearInterval(checkOrderStatus);
@@ -110,7 +109,6 @@ const Home = () => {
 
   const downloadQRCode = () => {
     const canvas = document.getElementById('zod-qrcode')?.querySelector('canvas');
-    console.log(canvas)
     if (canvas) {
       const url = canvas.toDataURL();
       const a = document.createElement('a');

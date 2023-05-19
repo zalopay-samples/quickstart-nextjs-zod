@@ -30,8 +30,6 @@ export default async function handler(req, res) {
         data: JSON.stringify(zodInvoice)
       };
 
-      console.log(zodInvoice);
-
       axios.request(config)
       .then(result => {
         res.status(200).json({
@@ -39,7 +37,6 @@ export default async function handler(req, res) {
         });
       })
       .catch(err => {
-        console.log(err.response)
         res.status(err.response.status).json({
           error: true,
           message: err.response.data.message
