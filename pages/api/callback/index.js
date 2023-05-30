@@ -1,8 +1,8 @@
 import CryptoJS from "crypto-js";
-import {configZLP} from "../../config";
+import { configZLP } from "../config";
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     try {
       let result = {};
       try {
@@ -11,7 +11,6 @@ export default async function handler(req, res) {
 
         let mac = CryptoJS.HmacSHA256(dataStr, configZLP.key2).toString();
         console.log("mac =", mac);
-
 
         // kiểm tra callback hợp lệ (đến từ ZaloPay server)
         if (reqMac !== mac) {
@@ -23,7 +22,10 @@ export default async function handler(req, res) {
           // merchant cập nhật trạng thái cho đơn hàng
           let dataJson = JSON.parse(dataStr, configZLP.key2);
           console.log(`💰  Payment callback received!`);
-          console.log("✅  Update order's status = success where mcRefId =", dataJson["mcRefId"]);
+          console.log(
+            "✅  Update order's status = success where mcRefId =",
+            dataJson["mcRefId"]
+          );
 
           result.return_code = 1;
           result.return_message = "success";
@@ -36,10 +38,10 @@ export default async function handler(req, res) {
       // thông báo kết quả cho ZaloPay server
       res.json(result);
     } catch (err) {
-      res.status(500).json({statusCode: 500, message: err.message});
+      res.status(500).json({ statusCode: 500, message: err.message });
     }
   } else {
-    res.setHeader('Allow', 'POST');
-    res.status(405).end('Method Not Allowed');
+    res.setHeader("Allow", "POST");
+    res.status(405).end("Method Not Allowed");
   }
 }
